@@ -21,7 +21,7 @@ function useInView<T extends Element>() {
   const ref = useRef<T>(null);
   const [inView, set] = useState(false);
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && set(true), { threshold: 0.25 });
+    const io = new IntersectionObserver((es) => es[0]?.isIntersecting && set(true), { threshold: 0.25 });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
   }, []);
@@ -83,7 +83,7 @@ const coast: [number, number][] = [
   [80.08, 9.35], [80.05, 9.55], [79.9, 9.7], [79.92, 9.78],
 ];
 const outline = "M" + coast.map(([a, b]) => proj(a, b).map((v) => v.toFixed(1)).join(",")).join(" L") + " Z";
-const mannarIsland = "M" + [[79.72, 9.1], [79.85, 9.03], [79.94, 8.97], [79.92, 9.0], [79.82, 9.07]].map(([a, b]) => proj(a, b).join(",")).join(" L") + " Z";
+const mannarIsland = "M" + [[79.72, 9.1], [79.85, 9.03], [79.94, 8.97], [79.92, 9.0], [79.82, 9.07]].map(([a, b]) => proj(a!, b!).join(",")).join(" L") + " Z";
 const JAFFNA = proj(80.01, 9.66);
 const MANNAR = proj(79.9, 8.98);
 const routeD = `M${JAFFNA[0]},${JAFFNA[1]} Q${JAFFNA[0] - 45},${(JAFFNA[1] + MANNAR[1]) / 2} ${MANNAR[0]},${MANNAR[1]}`;

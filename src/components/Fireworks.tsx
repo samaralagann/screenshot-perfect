@@ -84,13 +84,13 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
       }
 
       for (let i = rs.length - 1; i >= 0; i--) {
-        const r = rs[i];
+        const r = rs[i]!;
         r.x += r.vx; r.y += r.vy; r.vy += 0.12;
         add({ x: r.x, y: r.y, vx: (Math.random() - 0.5) * 0.6, vy: Math.random() * 0.8, life: 0, max: 30, c: r.c, s: 1.6, trail: true });
         if (r.y <= r.ty || r.vy >= -1) { explode(r.x, r.y, r.kind, r.c, r.size); rs.splice(i, 1); }
       }
       for (let i = ps.length - 1; i >= 0; i--) {
-        const p = ps[i];
+        const p = ps[i]!;
         p.life++; p.x += p.vx; p.y += p.vy;
         p.vx *= 0.97; p.vy = p.vy * 0.97 + (p.trail ? 0.02 : 0.06);
         const a = 1 - p.life / p.max;
@@ -104,7 +104,7 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
       ctx.globalAlpha = 1;
     };
 
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    const io = new IntersectionObserver((es) => { visible = !!es[0]?.isIntersecting; });
     io.observe(cv);
     if (reduce) {
       visible = false;
