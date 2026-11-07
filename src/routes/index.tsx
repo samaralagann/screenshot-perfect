@@ -156,9 +156,10 @@ function Index() {
     <main className="bg-romance text-foreground">
       {/* Opening */}
       <Section>
+        <Fireworks intensity={0.6} />
         <Ambience petals={18} sparks={30} hearts={8} />
         <div className="relative z-10 max-w-3xl space-y-5">
-          <Reveal><p className="font-serif text-xl text-deep-rose sm:text-2xl">என் அன்பான {config.her}க்கு...</p></Reveal>
+          <Reveal><p className="font-serif text-xl text-deep-rose sm:text-2xl">என் அன்பான {config.her}-க்கு...</p></Reveal>
           <Reveal delay={0.9}><p className="text-lg text-muted-foreground sm:text-xl">இனிய தீபாவளி நல்வாழ்த்துக்கள்! ❤️</p></Reveal>
           <Reveal delay={1.8}><h1 className="text-rosegold py-3 text-5xl font-bold leading-tight sm:text-7xl">நம் முதல் தீபாவளி</h1></Reveal>
           <Reveal delay={2.7}><p className="font-serif text-2xl text-foreground sm:text-3xl">{config.him} <span className="heartbeat inline-block text-deep-rose">❤️</span> {config.her}</p></Reveal>
@@ -228,7 +229,7 @@ function Index() {
         <Ambience petals={14} sparks={26} hearts={6} />
         <div className="relative z-10 max-w-2xl space-y-6">
           <Reveal><h2 className="text-rosegold text-3xl font-bold leading-snug sm:text-5xl">இனிய முதல் தீபாவளி வாழ்த்துக்கள், என் காதலியே! ❤️</h2></Reveal>
-          <Reveal delay={0.6}><p className="text-lg text-muted-foreground">{config.him}னின் இதயத்திலிருந்து {config.her}க்கு...</p></Reveal>
+          <Reveal delay={0.6}><p className="text-lg text-muted-foreground">{config.him}-இன் இதயத்திலிருந்து {config.her}-க்கு...</p></Reveal>
           <div className="space-y-2 font-serif text-xl">
             <Lines text={`இன்று நம் முதல் தீபாவளி...\nநாளை இன்னும் பல அழகான தீபாவளிகள்...\nஎன்றும் உன்னுடன் இருக்க வேண்டும் என்பதே என் ஆசை!`} />
           </div>
