@@ -30,6 +30,12 @@
  */
 
 @theme inline {
+  --font-serif: "Noto Serif Tamil", serif;
+  --font-sans: "Noto Sans Tamil", sans-serif;
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-gold: var(--gold);
+  --color-deep-rose: var(--deep-rose);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -73,26 +79,33 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+  --background: oklch(0.986 0.011 70);
+  --foreground: oklch(0.38 0.03 355);
+  --blush: oklch(0.93 0.03 360);
+  --rose: oklch(0.68 0.08 10);
+  --gold: oklch(0.78 0.1 85);
+  --deep-rose: oklch(0.5 0.12 360);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.38 0.03 355);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.38 0.03 355);
+  --primary: oklch(0.5 0.12 360);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.93 0.03 360);
+  --secondary-foreground: oklch(0.38 0.03 355);
+  --muted: oklch(0.95 0.02 360);
+  --muted-foreground: oklch(0.5 0.04 355);
+  --accent: oklch(0.78 0.1 85);
+  --accent-foreground: oklch(0.38 0.03 355);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.85 0.05 10);
+  --input: oklch(0.85 0.05 10);
+  --ring: oklch(0.68 0.08 10);
+  --gradient-romance: linear-gradient(180deg, var(--background), var(--blush) 55%, var(--background));
+  --gradient-rosegold: linear-gradient(110deg, var(--deep-rose), var(--rose) 40%, var(--gold) 60%, var(--deep-rose));
+  --shadow-glow: 0 0 40px color-mix(in oklab, var(--gold) 55%, transparent), 0 20px 60px -20px color-mix(in oklab, var(--deep-rose) 45%, transparent);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -152,4 +165,59 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+@layer base {
+  html, body { overflow-x: hidden; }
+  body { font-family: var(--font-sans); }
+  h1, h2, h3 { font-family: var(--font-serif); }
+}
+
+@utility bg-romance { background: var(--gradient-romance); }
+@utility text-rosegold {
+  background: var(--gradient-rosegold);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+
+.reveal { opacity: 0; transform: translateY(24px); filter: blur(6px); transition: opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease; }
+.reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+.petal { position: absolute; top: -10%; width: 14px; height: 18px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, var(--blush), var(--rose)); opacity: .75; animation: fall linear infinite; }
+.spark { position: absolute; width: 4px; height: 4px; border-radius: 9999px; background: var(--gold); box-shadow: 0 0 8px var(--gold); animation: twinkle 3s ease-in-out infinite; }
+.float-heart { position: absolute; bottom: -5%; color: var(--rose); animation: rise linear infinite; opacity: .6; }
+
+.diya { position: relative; width: 56px; height: 40px; }
+.diya::before { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 22px; border-radius: 0 0 50px 50px; background: linear-gradient(180deg, var(--gold), var(--deep-rose)); }
+.diya::after { content: ""; position: absolute; left: 50%; bottom: 18px; width: 14px; height: 24px; margin-left: -7px; border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%; background: radial-gradient(circle at 50% 75%, oklch(1 0 0), var(--gold) 45%, oklch(0.7 0.18 50) 80%); box-shadow: 0 0 24px 8px color-mix(in oklab, var(--gold) 70%, transparent); animation: flicker 1.6s ease-in-out infinite; transform-origin: bottom; }
+
+.route-draw { stroke-dasharray: 400; stroke-dashoffset: 400; }
+.is-in .route-draw { animation: draw 2.6s ease forwards 2.2s, routeglow 3s ease-in-out infinite 4.8s; }
+.is-in .map-outline { animation: draw-outline 3s ease forwards; }
+.map-outline { stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+.pop { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.is-in .pop { animation: pop .8s cubic-bezier(.3,1.6,.5,1) forwards; }
+.heartbeat { animation: beat 1.4s ease-in-out infinite; }
+.gather { animation: gather 2.2s ease forwards; }
+
+@keyframes shimmer { to { background-position: 200% center; } }
+@keyframes fall { to { transform: translate3d(60px, 115vh, 0) rotate(540deg); } }
+@keyframes rise { to { transform: translateY(-110vh) scale(1.3); opacity: 0; } }
+@keyframes twinkle { 50% { opacity: .15; transform: scale(.5); } }
+@keyframes flicker { 50% { transform: scaleY(1.15) skewX(3deg); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes draw-outline { to { stroke-dashoffset: 0; } }
+@keyframes routeglow { 50% { filter: drop-shadow(0 0 6px var(--gold)); } }
+@keyframes pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+@keyframes beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+@keyframes gather { from { opacity: 0; transform: scale(2.5); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal, .pop { opacity: 1; transform: none; filter: none; }
+  .route-draw, .map-outline { stroke-dashoffset: 0; }
 }
