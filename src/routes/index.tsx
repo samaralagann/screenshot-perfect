@@ -156,6 +156,7 @@ function Index() {
     <main className="bg-romance text-foreground">
       {/* Opening */}
       <Section>
+        <Fireworks intensity={0.6} />
         <Ambience petals={18} sparks={30} hearts={8} />
         <div className="relative z-10 max-w-3xl space-y-5">
           <Reveal><p className="font-serif text-xl text-deep-rose sm:text-2xl">என் அன்பான {config.her}-க்கு...</p></Reveal>
