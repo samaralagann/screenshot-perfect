@@ -28,7 +28,7 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
     window.addEventListener("resize", resize);
     const ps: P[] = [];
     const rs: R[] = [];
-    const pick = () => COLORS[(Math.random() * COLORS.length) | 0];
+    const pick = () => COLORS[(Math.random() * COLORS.length) | 0]!;
 
     const launch = (kind?: string, x?: number) => {
       const sx = x ?? w * (0.1 + Math.random() * 0.8);
@@ -38,7 +38,7 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
     const add = (p: P) => { if (ps.length < cap) ps.push(p); };
     const heartPts = (n: number) => Array.from({ length: n }, (_, i) => {
       const t = (i / n) * Math.PI * 2;
-      return [16 * Math.sin(t) ** 3, -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))];
+      return [16 * Math.sin(t) ** 3, -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))] as [number, number];
     });
     const explode = (x: number, y: number, kind: string, c: string, scale = 1) => {
       if (kind === "heart" || kind === "double" || kind === "giant") {
