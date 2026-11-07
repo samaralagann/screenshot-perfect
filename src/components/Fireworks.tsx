@@ -71,7 +71,7 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
       ctx.globalCompositeOperation = "destination-out";
       ctx.fillStyle = "rgba(0,0,0,0.22)";
       ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = "source-over";
+      ctx.globalCompositeOperation = "lighter";
 
       acc += 0.035 * intensity * (mobile ? 0.7 : 1);
       while (acc > 1) { acc--; launch(); if (Math.random() < 0.35) launch(); }
@@ -83,6 +83,16 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
         setTimeout(() => cb.current?.(), 4200);
       }
 
+      // Ground firecrackers: rapid pops with flashes along the bottom
+      if (Math.random() < 0.12 * intensity) {
+        const gx = w * Math.random(), gy = h - 10 - Math.random() * 30;
+        ctx.globalAlpha = 0.5; ctx.fillStyle = "#FFE4A8";
+        ctx.beginPath(); ctx.arc(gx, gy, 14 + Math.random() * 10, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1;
+        for (let k = 0; k < 18; k++) {
+          const a = -Math.PI * Math.random(), v = 1.5 + Math.random() * 4;
+          add({ x: gx, y: gy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 0, max: 25 + Math.random() * 20, c: Math.random() < 0.5 ? "#FF8A7A" : "#F3D58A", s: 1.6, glitter: true });
+        }
+      }
       for (let i = rs.length - 1; i >= 0; i--) {
         const r = rs[i]!;
         r.x += r.vx; r.y += r.vy; r.vy += 0.12;
