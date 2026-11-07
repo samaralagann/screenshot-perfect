@@ -71,7 +71,7 @@ export function Fireworks({ intensity = 1, finale = false, onFinale }: { intensi
       ctx.globalCompositeOperation = "destination-out";
       ctx.fillStyle = "rgba(0,0,0,0.22)";
       ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = "lighter";
+      ctx.globalCompositeOperation = "source-over";
 
       acc += 0.035 * intensity * (mobile ? 0.7 : 1);
       while (acc > 1) { acc--; launch(); if (Math.random() < 0.35) launch(); }
